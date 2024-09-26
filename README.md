@@ -7,4 +7,8 @@
 5. Start set mongoose db in index.js.
 6. Set express server and mongoose.
 7. Make folder models and inside Student.js, import mongoose and make Student Schema and after that model and export this Student.
-8. 
+8. Get students from db.
+9. Create student and send to db.
+- to create make html field with submit button.
+- to send it to db make post request and send it with create make express to use urlencoded and encoded to me false. This is needed to accept data and send it to db for bodies. 
+10. Update or Edit 
