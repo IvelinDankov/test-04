@@ -20,8 +20,19 @@ const studentSchema = new Schema({
     } 
 });
 
+/////////////////////
+// creating virtual
+////////////////////
+studentSchema.virtual('domain').get(function() {
+    return this.email.slice(this.email.indexOf('@') + 1);
+});
+
+studentSchema.virtual('fullName').get(function(){
+    return `${this.firstName} ${this.lastName}`;
+})
+
 studentSchema.method('info', function (text) {
-    return `${text}, I'm ${this.firstName} ${this.lastName} and I am ${this.age} years old, my email address is ${this.email}. Fill free to contact me. `
+    return `${text},<br> Name: ${this.fullName},<br> Age: ${this.age},<br> Email: ${this.email},<br> Domain: ${this.domain}`
 });
 
 const Student = model('Student', studentSchema);
