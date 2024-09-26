@@ -52,4 +52,34 @@ app.post('/students/create', async(req, res) => {
    res.redirect('/students')
 });
 
+///////////////////////
+// EDIT -> STUDENT
+//////////////////////
+
+app.get('/students/:studentId/edit', async(req, res) => {
+   const student = await Student.findById(req.params.studentId);
+   res.send(`
+    <h5>Create student in db</h5>
+    <fieldset>
+      <legend>Create</legend>
+      <form method="post">
+        <input type="text" name="firstName" placeholder="First Name" value="${student.firstName}"/>
+        <br>
+        <input type="text" name="lastName" placeholder="Last Name" value="${student.lastName}"/>
+        <br>
+        <input type="number" name="age" placeholder="Age" value="${student.age}"/>
+        <br>
+        <input type="email" name="email" placeholder="E-mail" value="${student.email}"/>
+        <input type="submit" value="edit" />
+      </form>
+    </fieldset>
+    `)
+
+});
+
+app.post('/students/:studentId/edit', async(req, res) => {
+   await Student.findByIdAndUpdate(req.params.studentId, req.body);
+   res.redirect('/students')
+});
+
 app.listen(5001, () => `Server is working on localhost 5001`);
