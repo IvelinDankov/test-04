@@ -35,8 +35,11 @@ app.get('/students/create', (req, res) => {
       <legend>Create</legend>
       <form method="post">
         <input type="text" name="firstName" placeholder="First Name" />
+        <br>
         <input type="text" name="lastName" placeholder="Last Name" />
+        <br>
         <input type="number" name="age" placeholder="Age" />
+        <br>
         <input type="email" name="email" placeholder="E-mail" />
         <input type="submit" value="create" />
       </form>
@@ -46,6 +49,7 @@ app.get('/students/create', (req, res) => {
 
 app.post('/students/create', async(req, res) => {
    const student = await Student.create(req.body);
+   res.redirect('/students')
 });
 
 app.listen(5001, () => `Server is working on localhost 5001`);

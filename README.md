@@ -10,5 +10,5 @@
 8. Get students from db.
 9. Create student and send to db.
 - to create make html field with submit button.
-- to send it to db make post request and send it with create make express to use urlencoded and encoded to me false. This is needed to accept data and send it to db for bodies. 
+- to send it to db make post request and send it with create make express to use urlencoded and encoded to me false. This is needed to accept data and send it to db for bodies. Created some names with First Name, Last Name, Age, E-mail.
 10. Update or Edit 
