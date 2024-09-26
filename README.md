@@ -18,3 +18,8 @@
 
 11. Delete.
     just find student by id and delete him. 
+
+##### Methods
+> Now creating method in Student.js file. 
+> 
+> [] Take studentSchema and write method 

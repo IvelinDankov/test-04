@@ -20,6 +20,10 @@ const studentSchema = new Schema({
     } 
 });
 
+studentSchema.method('info', function (text) {
+    return `${text}, I'm ${this.firstName} ${this.lastName} and I am ${this.age} years old, my email address is ${this.email}. Fill free to contact me. `
+});
+
 const Student = model('Student', studentSchema);
 
 export default Student;

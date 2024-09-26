@@ -91,4 +91,13 @@ app.get('/students/:studentId/delete', async(req, res) => {
    res.redirect('/students')
 });
 
+///////////////////////
+// GET ONE -> STUDENT
+//////////////////////
+
+app.get('/students/:studentId', async(req, res) => {
+    const student = await Student.findById(req.params.studentId);
+   res.send(student.info('Hello'))
+});
+
 app.listen(5001, () => `Server is working on localhost 5001`);
