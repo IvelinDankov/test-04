@@ -4,6 +4,7 @@ import Student from "./models/Student.js";
 
 const app = express();
 app.use(express.urlencoded({encoded: false}));
+app.use(express.static('static'));
 
 try {
   mongoose.connect("mongodb://localhost:27017/students");

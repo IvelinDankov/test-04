@@ -32,7 +32,24 @@ studentSchema.virtual('fullName').get(function(){
 })
 
 studentSchema.method('info', function (text) {
-    return `${text},<br> Name: ${this.fullName},<br> Age: ${this.age},<br> Email: ${this.email},<br> Domain: ${this.domain}`
+    return `<table>
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Age</td>
+                <td>Email</td>
+                <td>Domain</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${this.fullName}</td>
+                <td>${this.age}</td>
+                <td>${this.email}</td>
+                <td>${this.Domain}</td>
+            </tr>
+        </tbody>
+    </table>`
 });
 
 const Student = model('Student', studentSchema);
