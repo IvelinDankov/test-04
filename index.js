@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import express from "express";
+import Student from "./models/Student.js";
 
 const app = express();
 
@@ -14,5 +15,17 @@ try {
 app.get('/', (req, res) => {
    res.send('Welcome Express.js you have connection')
 });
+
+///////////////////////
+// GET ALL STUDENTS
+//////////////////////
+app.get('/students', async(req, res) => {
+   const students = await Student.find();
+   res.send(students)
+});
+
+///////////////////////
+// CREATE -> STUDENT
+//////////////////////
 
 app.listen(5001, () => `Server is working on localhost 5001`);
