@@ -6,4 +6,5 @@
 4. Setting package json file and type to be modular.
 5. Start set mongoose db in index.js.
 6. Set express server and mongoose.
-7. 
+7. Make folder models and inside Student.js, import mongoose and make Student Schema and after that model and export this Student.
+8. 

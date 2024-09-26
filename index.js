@@ -4,7 +4,7 @@ import express from "express";
 const app = express();
 
 try {
-  mongoose.connect("mongodb://localhost:27017/testdb");
+  mongoose.connect("mongodb://localhost:27017/students");
   console.log("Connected to DB..");
 } catch (error) {
   console.log("NOT connected yet!!!");
