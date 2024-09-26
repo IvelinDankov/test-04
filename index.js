@@ -82,4 +82,13 @@ app.post('/students/:studentId/edit', async(req, res) => {
    res.redirect('/students')
 });
 
+///////////////////////
+// DELETE -> STUDENT
+//////////////////////
+
+app.get('/students/:studentId/delete', async(req, res) => {
+   await Student.findByIdAndDelete(req.params.studentId);
+   res.redirect('/students')
+});
+
 app.listen(5001, () => `Server is working on localhost 5001`);
