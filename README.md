@@ -22,4 +22,14 @@
 ##### Methods
 > Now creating method in Student.js file. 
 > 
-> [] Take studentSchema and write method 
+> [] Take studentSchema and write method 1. Schema and then method
+> [] Inside write string as method and make not arrow function. then return result 
+> [] Put method name in single id Student
+
+###### Virtual 
+- Take Schema write virtual and make for example 
+```
+Schema.virtual('fullName').get(function(){
+    return `${firstName} ${lastName}`
+})
+```
