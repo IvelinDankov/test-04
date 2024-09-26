@@ -1,0 +1,36 @@
+
+<section>
+    <form style="margin: 10px" padding-left="10px">
+        <input style="margin-left: 10px" type="search" name="minAge">
+        <input type="submit" value="search">
+    </form>
+</section>
+
+<table>
+    <thead>
+        <tr>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Year</td>
+            <td>Email</td>
+            <td>Action</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        {{#each sorted}}
+        <tr>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{born}}</td>
+            <td>{{email}}</td>
+            <td><a href="students/{{_id}}">details</a></td>
+            <td><a href="students/{{_id}}/edit">edit</a></td>
+            <td><a style="text-decoration: none;" href="students/{{_id}}/delete">&#10060;</a></td>
+        </tr>
+        {{/each}}
+
+    </tbody>

@@ -9,7 +9,7 @@ const studentSchema = new Schema({
         type: String,  
         required: true,  
     },  
-    age: {  
+    born: {  
         type: Number,  
         required: true,  
     },  
@@ -17,7 +17,15 @@ const studentSchema = new Schema({
         type: String,  
         required: true,  
         unique: true,  
-    } 
+    }, 
+    imageUrl: {
+        type: String,
+        required: true,
+    }, 
+    age: {
+        type: Number,
+        required: false,
+    }
 });
 
 /////////////////////
@@ -32,24 +40,8 @@ studentSchema.virtual('fullName').get(function(){
 })
 
 studentSchema.method('info', function (text) {
-    return `<table>
-        <thead>
-            <tr>
-                <td>Name</td>
-                <td>Age</td>
-                <td>Email</td>
-                <td>Domain</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>${this.fullName}</td>
-                <td>${this.age}</td>
-                <td>${this.email}</td>
-                <td>${this.Domain}</td>
-            </tr>
-        </tbody>
-    </table>`
+    return ``
+        
 });
 
 const Student = model('Student', studentSchema);

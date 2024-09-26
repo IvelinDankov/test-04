@@ -1,9 +1,111 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-table thead, td {
-    border: 1px solid #000;
+header {
+  background-color: #795106;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+header > img {
+    border-radius: 50rem;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+header ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+header ul li a {
+  text-decoration: none;
+  padding: 10px;
+  color: #f1f1f1;
+}
+
+
+
+table {
+    background-color: #fff;
+    border: 0.2px solid #000;
+    padding: 10px;
+    margin-top: 8px;
+    border-collapse: collapse;
+}
+
+td {
+  background-color: #fff;
+  border-bottom: 1px solid #795106;
+  /* border: 0.2px solid #000; */
+  padding: 1px 10px;
+  margin-top: 8px;
+}
+
+thead > tr td {
+  background-color: lightyellow;
+}
+
+img {
+  width: 210px;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.img-box {
+  width: 120px;
+  height: 120px;
+}
+
+.img-box > td {
+  text-align: center;
+}
+
+body {
+  background-color: #f4d6cc;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+fieldset {
+  align-self: center;
+  padding: 40px;
+  background: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F3d%2Ffe%2F80%2F3dfe803475174ddb68b0871c51436256--bulgarian-warfare.jpg&f=1&nofb=1&ipt=7c4db8579f6a3d80f933bd1db1f043afd3fbfd0b8f56ce09f790198a9d8966a3&ipo=images");
+  background-size: cover;
+}
+
+legend {
+  background-color: #fff;
+  padding: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h5 {
+  margin: 20px 0;
+  text-align: center;
+}
+
+form > input {
+  margin-bottom: 10px;
+  padding: 0.8px;
+}
+
+form > input:not(:last-child) {
+  background-color: #ffffff94;
 }

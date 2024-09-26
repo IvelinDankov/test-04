@@ -1,10 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { get } from "mongoose";
 import express from "express";
 import Student from "./models/Student.js";
+import { engine } from "express-handlebars";
 
 const app = express();
-app.use(express.urlencoded({encoded: false}));
-app.use(express.static('static'));
+app.use(express.urlencoded({ encoded: false }));
+app.use(express.static("static"));
+
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
+app.set("views", "./views");
 
 try {
   mongoose.connect("mongodb://localhost:27017/students");
@@ -14,91 +19,83 @@ try {
   console.log(error.message);
 }
 
-app.get('/', (req, res) => {
-   res.send('Welcome Express.js you have connection')
+app.get("/", (req, res) => {
+  res.send("Welcome Express.js you have connection");
 });
 
 ///////////////////////
 // GET ALL STUDENTS
 //////////////////////
-app.get('/students', async(req, res) => {
-   const students = await Student.find();
-   res.send(students)
+app.get("/students", async (req, res) => {
+  const students = Student.find();
+
+  if (req.query.minAge) {
+    students.find({ age: { $gt: req.query.minAge } });
+  }
+
+  let sorted = await students.lean();
+
+  res.render("home", { sorted });
 });
 
 ///////////////////////
 // CREATE -> STUDENT
 //////////////////////
-app.get('/students/create', (req, res) => {
-   res.send(`
-    <h5>Create student in db</h5>
-    <fieldset>
-      <legend>Create</legend>
-      <form method="post">
-        <input type="text" name="firstName" placeholder="First Name" />
-        <br>
-        <input type="text" name="lastName" placeholder="Last Name" />
-        <br>
-        <input type="number" name="age" placeholder="Age" />
-        <br>
-        <input type="email" name="email" placeholder="E-mail" />
-        <input type="submit" value="create" />
-      </form>
-    </fieldset>
-    `)
+app.get("/students/create", async(req, res) => {
+    
+  res.render('create');
 });
 
-app.post('/students/create', async(req, res) => {
-   const student = await Student.create(req.body);
-   res.redirect('/students')
+app.post("/students/create", async (req, res) => {
+    
+    req.body.age = await calcAge(req.body.born);
+    let student = await Student.create(req.body);
+
+
+  res.redirect("/students");
 });
 
 ///////////////////////
 // EDIT -> STUDENT
 //////////////////////
 
-app.get('/students/:studentId/edit', async(req, res) => {
-   const student = await Student.findById(req.params.studentId);
-   res.send(`
-    <h5>Create student in db</h5>
-    <fieldset>
-      <legend>Create</legend>
-      <form method="post">
-        <input type="text" name="firstName" placeholder="First Name" value="${student.firstName}"/>
-        <br>
-        <input type="text" name="lastName" placeholder="Last Name" value="${student.lastName}"/>
-        <br>
-        <input type="number" name="age" placeholder="Age" value="${student.age}"/>
-        <br>
-        <input type="email" name="email" placeholder="E-mail" value="${student.email}"/>
-        <input type="submit" value="edit" />
-      </form>
-    </fieldset>
-    `)
-
+app.get("/students/:studentId/edit", async (req, res) => {
+  const student = await Student.findById(req.params.studentId).lean();
+  res.render("edit", { student });
 });
 
-app.post('/students/:studentId/edit', async(req, res) => {
-   await Student.findByIdAndUpdate(req.params.studentId, req.body);
-   res.redirect('/students')
+app.post("/students/:studentId/edit", async (req, res) => {
+    req.body.age = await calcAge(req.body.born);
+  await Student.findByIdAndUpdate(req.params.studentId, req.body);
+  res.redirect("/students");
 });
 
 ///////////////////////
 // DELETE -> STUDENT
 //////////////////////
 
-app.get('/students/:studentId/delete', async(req, res) => {
-   await Student.findByIdAndDelete(req.params.studentId);
-   res.redirect('/students')
+app.get("/students/:studentId/delete", async (req, res) => {
+  await Student.findByIdAndDelete(req.params.studentId);
+  res.redirect("/students");
 });
 
 ///////////////////////
 // GET ONE -> STUDENT
 //////////////////////
 
-app.get('/students/:studentId', async(req, res) => {
-    const student = await Student.findById(req.params.studentId);
-   res.send(student.info('Hello'))
+app.get("/students/:studentId", async (req, res) => {
+  let student = await Student.findById(req.params.studentId).lean();
+
+  const yearBorn = calcAge(student.born);
+  student.age = yearBorn;
+
+  res.render("one", { student });
 });
 
 app.listen(5001, () => `Server is working on localhost 5001`);
+
+function calcAge(bornYear) {
+  let today = new Date();
+  let year = today.getFullYear();
+  return year - bornYear;
+}

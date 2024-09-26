@@ -1,0 +1,28 @@
+<table>
+        <thead>
+            <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Year</td>
+                <td>Email</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+
+
+  <tr>
+      <td>{{student.firstName}}</td>
+      <td>{{student.lastName}}</td>
+      <td>{{student.born}}</td>
+      <td>{{student.email}}</td>
+    <td><a href="/students/{{student._id}}/edit">edit</a></td></tr>
+    <tr class="img-box">
+        <td colspan="4">
+        <img src="{{student.imageUrl}}" alt="{{student.firstName}}">
+
+        </td>
+        <td>{{student.age}} </td>
+        
+    </tr>
+</tbody>
