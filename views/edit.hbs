@@ -1,0 +1,41 @@
+<h5>Create student in db</h5>
+<fieldset>
+  <legend>Edit</legend>
+  <form method="post">
+    <input
+      type="text"
+      name="firstName"
+      placeholder="First Name"
+      value="{{student.firstName}}"
+    />  
+    <br />
+    <input
+      type="text"
+      name="lastName"
+      placeholder="Last Name"
+      value="{{student.lastName}}"
+    />
+    <br />
+    <input
+      type="number"
+      name="born"
+      placeholder="Born"
+      value="{{student.born}}"
+    />
+    <br />
+    <input
+      type="email"
+      name="email"
+      placeholder="E-mail"
+      value="{{student.email}}"
+    />
+    <br />
+    <input
+      type="text"
+      name="imageUrl"
+      placeholder="image"
+      value="{{student.imageUrl}}"
+    />
+    <input type="submit" value="edit" />
+  </form>
+</fieldset>

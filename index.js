@@ -4,16 +4,18 @@ import Student from "./models/Student.js";
 import { engine } from "express-handlebars";
 
 const app = express();
-app.use(express.urlencoded({ encoded: false }));
+app.use(express.urlencoded({ encoding: false }));
 app.use(express.static("static"));
 
-app.engine("handlebars", engine());
-app.set("view engine", "handlebars");
+app.engine("hbs", engine({
+  extname: 'hbs'
+}));
+app.set("view engine", "hbs");
 app.set("views", "./views");
 
 try {
   mongoose.connect("mongodb://localhost:27017/students");
-  console.log("Connected to DB..");
+  console.log("Connected to DB.."); 
 } catch (error) {
   console.log("NOT connected yet!!!");
   console.log(error.message);
@@ -29,6 +31,8 @@ app.get("/", (req, res) => {
 app.get("/students", async (req, res) => {
   const students = Student.find();
 
+  const arrOfStudents = Object.entries(students);
+
   if (req.query.minAge) {
     students.find({ age: { $gt: req.query.minAge } });
   }
@@ -41,16 +45,13 @@ app.get("/students", async (req, res) => {
 ///////////////////////
 // CREATE -> STUDENT
 //////////////////////
-app.get("/students/create", async(req, res) => {
-    
-  res.render('create');
+app.get("/students/create", async (req, res) => {
+  res.render("create");
 });
 
 app.post("/students/create", async (req, res) => {
-    
-    req.body.age = await calcAge(req.body.born);
-    let student = await Student.create(req.body);
-
+  req.body.age = await calcAge(req.body.born);
+  let student = await Student.create(req.body);
 
   res.redirect("/students");
 });
@@ -65,7 +66,7 @@ app.get("/students/:studentId/edit", async (req, res) => {
 });
 
 app.post("/students/:studentId/edit", async (req, res) => {
-    req.body.age = await calcAge(req.body.born);
+  req.body.age = await calcAge(req.body.born);
   await Student.findByIdAndUpdate(req.params.studentId, req.body);
   res.redirect("/students");
 });
